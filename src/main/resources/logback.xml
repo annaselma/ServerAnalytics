@@ -1,0 +1,55 @@
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ConnectionsFrom"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>connectionsFrom.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- Hourly rollover -->
+			<fileNamePattern>connectionsFrom.%d{yyyy-MM-dd_HH}.log
+			</fileNamePattern>
+
+			<!-- keep 30 hours' worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ConnectionsTo"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>connectionsTo.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- Hourly rollover -->
+			<fileNamePattern>connectionsTo.%d{yyyy-MM-dd_HH}.log
+			</fileNamePattern>
+
+			<!-- keep 30 hours' worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+    
+    <logger name="ConnectionsFrom">
+        <appender-ref ref="ConnectionsFrom" />
+    </logger>
+	<logger name="ConnectionsTO">
+		<appender-ref ref="ConnectionsTO" />
+	</logger>
+
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+
+
+</configuration>
