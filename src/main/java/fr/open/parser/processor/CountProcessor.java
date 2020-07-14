@@ -51,8 +51,8 @@ public class CountProcessor implements Processor {
 		CountElement count = getCounter().getCount();
 		if (count == null)
 			return;
-		logout.info("Host making most connections : " + count.getKey()
-				+ " , connections done : " + count.getCount());
+		logout.info("le serveur qui a généré le plus de connections : " + count.getKey()
+				+ " , connections faites : " + count.getCount());
 	}
 
 	/**

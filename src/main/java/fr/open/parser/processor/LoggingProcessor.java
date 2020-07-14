@@ -17,7 +17,7 @@ public class LoggingProcessor implements Processor{
 	@Override
 	synchronized public void process(final Object[] data) {
 		if (strategy.filter(data) ){
-			logout.info("Connection made at "+data[0]+" from " +data[1] + " to "+data[2]);
+			logout.info("Connection faite à "+data[0]+" Depuis " +data[1] + " vers "+data[2]);
 		}
 		
 	}

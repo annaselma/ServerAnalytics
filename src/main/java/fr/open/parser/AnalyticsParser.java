@@ -47,7 +47,7 @@ public class AnalyticsParser {
 	 * pools threads
 	 *
 	 * @param line
-	 *            the line
+	 *
 	 */
 	public void decoded(Object[] line) {
 		// after data is decoded use processor to process this data this code is
@@ -62,13 +62,12 @@ public class AnalyticsParser {
 	
 	
 	/**
-	 * The main method.  takes as an input 4 arguments
+	 * The main method.  takes as an input 3 arguments
 	 * <pre>
-	 * LogParser filename follow hostFrom hostTo
+	 * AnalyticsParser nomduFichier  hostFrom hostTo
 	 * </pre>
 	 * <ul>
-	 * <li> filename - name of the file to process</li>
-	 * <li> follow - boolean if follow is true LogParser will wait for data to be appended to file</li>
+	 * <li> Nom Du Fichier - name of the file to process</li>
 	 * <li> hostFrom - source host from which data will be logged </li>
 	 * <li> hostTo - destination host from which data will be logged </li>
 	 * </ul>
@@ -86,6 +85,6 @@ public class AnalyticsParser {
 	}
 
 	private static void printUsage() {
-		System.out.println(" Usage : LogParser filename follow hostFrom hostTo\n See JavaDoc for more info");
+		System.out.println(" Usage : AnalyticsParser nomduFichier  hostFrom hostTo\n ");
 	}
 }

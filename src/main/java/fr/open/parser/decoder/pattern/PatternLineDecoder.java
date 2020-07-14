@@ -43,10 +43,6 @@ public class PatternLineDecoder {
         }
 
         public PatternLineDecoder(final String pattern, final char separator) {
-            /*
-             * This is executed only once during startup so it do not require high
-             * performance but it must be easy to understand
-             */
 
             this.pattern = pattern;
             this.separator = separator;

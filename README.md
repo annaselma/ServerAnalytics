@@ -1,4 +1,4 @@
-OpenInterview Log I.Zammel
+OpenInterview
 =========
 #Description: 
 
@@ -6,7 +6,6 @@ Un fichier de log contient des lignes avec du texte séparé par un espace, form
 
 
 <timestamp unix> <hostname> <hostname>
-
  
 Par exemple:
  
@@ -32,32 +31,32 @@ Le nombre de lignes dans le fichier de log peut être très important. Considér
 Si certains aspects de ce problème ne vous semblent pas clairs, n'hésitez pas à faire des hypothèses pour les clarifier, en les mentionnant dans votre réponse. 
 
  
-#Build
-Application is configured to be build by maven build system it is enough to go to main directory where pom.xml is located and execute 
-	mvn install
-This will compile all the sources and run existing tests and create executable jar file , this jar file require some dependencies to be executed and are located in local maven repository.
+#Build -- mvn install
 
- 
-#Design
-La conception de l'application est faite comme : 
-1/ FileReader qui est lancé depuis un seul Thread (Lecture de toute la ligne du fichier)
-2/ThreadPoolExecutor qui execute et fais le  parsing des données. 
-* Chaque  executor a son propre Buffers qui est réutiliser à chaque traitement de données.
+#CodeDescription
+La conception de l'application est faite comme suit: 
+le main se trouve dans AnalyticsParser.
+1/ FileReader est lancé depuis un seul Thread (Lecture de toute la ligne du fichier)
+2/ThreadPoolExecutor execute et fais le  parsing des données. 
+NB: * Chaque  executor a son propre Buffers qui est réutiliser à chaque traitement de données.
 * LineDecoder(t, h, h ) correspond aux trois elements que comprends une ligne ( TimeStamp==t, HOSTNAME==h)
-
-Processor 1 and 2 are a logging processors with a bit different strategy  but the main function is to log every data that is acceptable by passed filter in to the output logger after this logger is configured in logback.xml to be a rolling appender and data is send to the file 
-this processor is not storing any additional data.
-
-Processor 3 is a CountingProcessor and is configured to Count String words passed from data at the moment it counts connections from and to certain host. Processor is using hashmap to store CountElements maximum count is Long.MAX_VALUE  the size of the hashmap can be limited and as default it is limited to 100 000 elements if it is limited if size of the map is greater than specified limit it is truncated to the specified size containing largest counts . This solution  can generate counting errors so if it is necessary to have perfect count it is recommended not to use limit. Processor is flushed every hour (Assumption : but only if there is data coming in)
-
+* La configuration de journalisation est dans : logback.xml  
+2 processeurs de journalisation et un processeur qui fais un count du temps de connection depuis et vers un serveur en utlisant une hashmap pour stocker les elements.
 #Gesion de CPU
 L'utilisation de Multitread et de Sychrinized pour eviter toute exclusion mutuelle.
 
 #Run
-To execute application :
+java -jar AnalyticsParser.jar NomduFichier  hostFrom hostTo
+NomDuFichier : est le nom du fichier de log à analyser
+hostFrom - le nom du serveur de depart dont les données à archiver 
+hostTo - le nom du serveur de destination dont les données à archiver
 
-java -jar LogParser.jar filename  hostFrom hostTo
- 
-filename - name of the file to process 
-hostFrom - source host from which data will be logged 
-hostTo - destination host from which data will be logged 
+#Générer le fichier de log
+FileWrite permet de créer un log prototype
+
+#TestUnitaire 
+AnalyticsParserTest 
+Le serveur qui a fait le plus de connection est  : z , nombre de connection : 235
+
+
+
